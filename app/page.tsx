@@ -3,6 +3,7 @@ import Reveal from "./components/Reveal";
 import HeroVideo from "./components/HeroVideo";
 import HeroChat from "./components/HeroChat";
 import ScrollStatement from "./components/ScrollStatement";
+import PropertyCard from "./components/PropertyCard";
 
 export default function HomePage() {
   return (
@@ -22,7 +23,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FEATURE CARDS */}
+      {/* PROPERTY CARDS */}
       <section style={{ background: "#fff", padding: "0 0 clamp(80px,14vw,200px)" }}>
         <div className="feature-cards" style={{
           display: "grid",
@@ -30,61 +31,33 @@ export default function HomePage() {
           gap: "clamp(12px,2vw,24px)",
           padding: "0 clamp(20px,4vw,56px) clamp(20px,4vw,56px)",
         }}>
-          {[
-            {
-              label: "Off-Market",
-              heading: "Exclusive access before it goes public.",
-              body: "Our buyer network gets first look at the finest properties in the region — many sales are negotiated quietly, before a sign goes up.",
-              bg: "#d4bb7b",
-            },
-            {
-              label: "Prestige Sales",
-              heading: "Results that reflect the true value of your home.",
-              body: "We combine deep local knowledge with an uncompromising approach to presentation and negotiation — because every detail matters at this level.",
-              bg: "#1a1208",
-            },
-            {
-              label: "Market Intelligence",
-              heading: "Know your position before you move.",
-              body: "Detailed, honest appraisals grounded in live market data. We'll tell you what your property is worth — and how to maximise it.",
-              bg: "#d4bb7b",
-            },
-          ].map((card, i) => (
-            <Reveal key={i} delay={i * 80} style={{
-              background: card.bg,
-              color: "#fff",
-              aspectRatio: "3 / 4",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-end",
-              padding: "clamp(28px,4vw,56px)",
-              minHeight: "clamp(380px,55vw,760px)",
-              border: "1px solid rgba(255,255,255,0.18)",
-              borderRadius: 4,
-            }}>
-              <p style={{
-                fontFamily: "var(--font-mono), monospace",
-                fontSize: 11,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                opacity: 0.7,
-                marginBottom: 24,
-              }}>{card.label}</p>
-              <h3 style={{
-                fontSize: "clamp(24px,2.8vw,42px)",
-                fontWeight: 700,
-                letterSpacing: "-0.035em",
-                lineHeight: 1.05,
-                marginBottom: 20,
-              }}>{card.heading}</h3>
-              <p style={{
-                fontSize: "clamp(14px,1.1vw,17px)",
-                lineHeight: 1.6,
-                opacity: 0.75,
-                maxWidth: 340,
-              }}>{card.body}</p>
-            </Reveal>
-          ))}
+          <PropertyCard
+            image="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80"
+            address="14 Cliff Drive, Thirroul"
+            suburb="Thirroul"
+            price="$4,200,000"
+            beds={5}
+            baths={4}
+            delay={0}
+          />
+          <PropertyCard
+            image="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
+            address="8 Marine Parade, Kiama"
+            suburb="Kiama"
+            price="$3,850,000"
+            beds={4}
+            baths={3}
+            delay={80}
+          />
+          <PropertyCard
+            image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80"
+            address="22 Lawrence Hargrave Drive, Scarborough"
+            suburb="Scarborough"
+            price="$5,100,000"
+            beds={6}
+            baths={5}
+            delay={160}
+          />
         </div>
       </section>
 
