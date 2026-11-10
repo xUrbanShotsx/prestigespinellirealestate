@@ -9,16 +9,16 @@ const EASE = "cubic-bezier(0.22,1,0.36,1)";
 
 export default function HeroChat() {
   const [phase, setPhase] = useState<Phase>("hidden");
+  const [mounted, setMounted] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [streaming, setStreaming] = useState(false);
   const [innerVisible, setInnerVisible] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const chatEndRef = useRef<HTMLDivElement>(null);
   const messagesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase("tagline"), 4500);
+    const t1 = setTimeout(() => { setPhase("tagline"); setTimeout(() => setMounted(true), 20); }, 4500);
     const t2 = setTimeout(() => setPhase("bar"), 7500);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
@@ -78,20 +78,7 @@ export default function HeroChat() {
 
   if (phase === "hidden") return null;
 
-  if (phase === "tagline") {
-    return (
-      <div style={{ position: "absolute", inset: 0, zIndex: 3, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <p style={{
-          color: "#fff", fontFamily: "var(--font-sans), sans-serif", fontWeight: 700,
-          fontSize: "clamp(28px,4vw,56px)", letterSpacing: "-0.02em",
-          textAlign: "center", whiteSpace: "nowrap",
-        }}>
-          Prestige Property Specialist
-        </p>
-      </div>
-    );
-  }
-
+  const showTagline = phase === "tagline";
   const isChat = phase === "chat";
 
   return (
@@ -101,6 +88,28 @@ export default function HeroChat() {
       padding: "0 clamp(16px,4vw,48px)",
       paddingBottom: isChat ? "0" : "6vh",
     }}>
+
+      {/* TAGLINE — fades out as bar fades in, same position */}
+      <p style={{
+        position: "absolute",
+        bottom: isChat ? "50%" : "calc(50% - 3vh)",
+        left: "50%",
+        transform: `translateX(-50%) translateY(50%) ${mounted && showTagline ? "scale(1) translateY(0px)" : showTagline ? "scale(0.96) translateY(8px)" : "scale(1.03) translateY(-6px)"}`,
+        opacity: mounted && showTagline ? 1 : 0,
+        color: "#fff",
+        fontFamily: "var(--font-sans), sans-serif",
+        fontWeight: 700,
+        fontSize: "clamp(28px,4vw,56px)",
+        letterSpacing: "-0.02em",
+        textAlign: "center",
+        whiteSpace: "nowrap",
+        pointerEvents: "none",
+        transition: `opacity 0.7s ${EASE}, transform 0.7s ${EASE}`,
+      }}>
+        Prestige Property Specialist
+      </p>
+
+      {/* BAR + CHAT — fades in as tagline fades out */}
       <div style={{
         width: isChat ? "min(700px, 100%)" : "min(580px, 100%)",
         height: isChat ? "min(520px, 85svh)" : 60,
@@ -112,11 +121,15 @@ export default function HeroChat() {
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
+        opacity: showTagline ? 0 : 1,
+        transform: showTagline ? "scale(0.96) translateY(10px)" : "scale(1) translateY(0)",
         transition: [
-          `width   0.65s ${EASE}`,
-          `height  0.65s ${EASE}`,
+          `opacity     0.65s ${EASE}`,
+          `transform   0.65s ${EASE}`,
+          `width       0.65s ${EASE}`,
+          `height      0.65s ${EASE}`,
           `border-radius 0.5s ${EASE}`,
-          `box-shadow 0.65s ${EASE}`,
+          `box-shadow  0.65s ${EASE}`,
         ].join(", "),
       }}>
 
@@ -201,7 +214,6 @@ export default function HeroChat() {
               </div>
             </div>
           ))}
-          <div ref={chatEndRef} />
         </div>
 
         {/* INPUT */}
