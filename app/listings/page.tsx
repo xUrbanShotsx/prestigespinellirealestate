@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { fetchAllListings, mapListing } from "@/lib/agentbox";
 import type { Property } from "@/lib/types";
 import Reveal from "../components/Reveal";
+import ListingCard from "./ListingCard";
 
 export const metadata: Metadata = { title: "Listings" };
 export const revalidate = 3600;
@@ -68,56 +68,6 @@ const FAKE_LISTINGS: Property[] = [
     description: "", image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80",
   },
 ];
-
-const IMG_H = "clamp(200px, 23vw, 380px)";
-
-function ListingCard({ p }: { p: Property }) {
-  const href = `https://www.spinellirealestate.com.au/property/${p.id}`;
-
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="listing-card"
-      style={{ display: "block", textDecoration: "none", color: "inherit" }}
-    >
-      <div style={{ position: "relative", height: IMG_H, overflow: "hidden", background: "#ece9e2" }}>
-        <Image
-          src={p.image}
-          alt={p.address}
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          style={{ objectFit: "cover", transition: "transform 0.9s cubic-bezier(0.22,1,0.36,1)" }}
-          className="listing-card__img"
-        />
-        {p.tag && (
-          <span style={{
-            position: "absolute", top: 14, left: 14,
-            background: p.tag === "Under Offer" ? "#d4bb7b" : "rgba(26,18,8,0.78)",
-            color: "#fff",
-            fontFamily: "var(--font-mono), monospace",
-            fontSize: 9, letterSpacing: "0.12em", textTransform: "uppercase",
-            padding: "4px 10px", borderRadius: 999,
-          }}>{p.tag}</span>
-        )}
-      </div>
-
-      <div style={{ paddingTop: 14 }}>
-        <p style={{
-          fontFamily: "var(--font-mono), monospace",
-          fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase",
-          color: "#1a1208", marginBottom: 4,
-        }}>{p.address.toUpperCase()}</p>
-        <p style={{
-          fontFamily: "var(--font-mono), monospace",
-          fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase",
-          color: "rgba(26,18,8,0.45)",
-        }}>{p.suburb.toUpperCase()} NSW</p>
-      </div>
-    </a>
-  );
-}
 
 export default async function ListingsPage() {
   let forSale: Property[] = [];
