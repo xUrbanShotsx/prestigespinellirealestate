@@ -350,46 +350,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
         </section>
       )}
 
-      {/* ── FEATURES ─────────────────────────────────────────────── */}
-      {p.features && p.features.length > 0 && (
-        <section style={{ background: "#f7f4ee", padding: "clamp(80px,10vw,140px) 0" }}>
-          <div className="wrap">
-            <Reveal>
-              <p style={{
-                fontFamily: "var(--font-mono), monospace",
-                fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase",
-                color: "rgba(26,18,8,0.4)", marginBottom: 48,
-              }}>Property features</p>
-            </Reveal>
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-            }}>
-              {p.features.map((f, i) => (
-                <Reveal key={f} delay={Math.min(i * 30, 150)}>
-                  <div style={{
-                    padding: "20px 0",
-                    borderBottom: "1px solid rgba(26,18,8,0.1)",
-                    display: "flex", alignItems: "center", gap: 16,
-                  }}>
-                    <span style={{
-                      width: 4, height: 4, borderRadius: "50%",
-                      background: "#d4bb7b", flexShrink: 0,
-                    }} />
-                    <span style={{
-                      fontFamily: "var(--font-mono), monospace",
-                      fontSize: 11, letterSpacing: "0.08em", color: "#1a1208",
-                    }}>{f}</span>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* ── ENQUIRY ──────────────────────────────────────────────── */}
-      <section id="enquire" style={{ background: "#0a0a08", padding: "clamp(80px,10vw,140px) 0" }}>
+      <section id="enquire" style={{ background: "#fff", padding: "clamp(80px,10vw,140px) 0", borderTop: "1px solid rgba(26,18,8,0.08)" }}>
         <div className="wrap property-enquiry-grid" style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -401,14 +363,14 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
               <p style={{
                 fontFamily: "var(--font-mono), monospace",
                 fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase",
-                color: "rgba(255,255,255,0.3)", marginBottom: 32,
+                color: "rgba(26,18,8,0.35)", marginBottom: 32,
               }}>Enquire</p>
             </Reveal>
             <Reveal delay={40}>
               <h2 style={{
                 fontSize: "clamp(36px,6vw,80px)",
                 fontWeight: 700, letterSpacing: "-0.04em", lineHeight: 0.92,
-                color: "#fff", marginBottom: 32,
+                color: "#1a1208", marginBottom: 32,
               }}>
                 Interested<br />in this<br />property?
               </h2>
@@ -416,7 +378,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
             <Reveal delay={80}>
               <p style={{
                 fontSize: "clamp(14px,1.4vw,17px)", lineHeight: 1.7,
-                color: "rgba(255,255,255,0.5)", maxWidth: 380,
+                color: "rgba(26,18,8,0.5)", maxWidth: 380,
               }}>
                 Send us a message and we&apos;ll be in touch within the hour.
               </p>

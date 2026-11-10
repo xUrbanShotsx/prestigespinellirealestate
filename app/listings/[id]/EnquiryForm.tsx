@@ -6,9 +6,9 @@ const EASE = "cubic-bezier(0.22,1,0.36,1)";
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
-  background: "rgba(255,255,255,0.05)",
-  border: "1px solid rgba(255,255,255,0.12)",
-  color: "#fff",
+  background: "transparent",
+  border: "1px solid rgba(26,18,8,0.15)",
+  color: "#1a1208",
   padding: "16px 20px",
   fontFamily: "var(--font-mono), monospace",
   fontSize: 12,
@@ -31,7 +31,7 @@ export default function EnquiryForm({ address, suburb }: { address: string; subu
     return (
       <div style={{
         padding: "48px 40px",
-        border: "1px solid rgba(212,187,123,0.3)",
+        border: "1px solid rgba(212,187,123,0.4)",
         display: "flex", flexDirection: "column", gap: 16,
       }}>
         <div style={{
@@ -44,13 +44,13 @@ export default function EnquiryForm({ address, suburb }: { address: string; subu
         </div>
         <p style={{
           fontFamily: "var(--font-sans), sans-serif",
-          fontSize: 22, fontWeight: 600, color: "#fff",
+          fontSize: 22, fontWeight: 600, color: "#1a1208",
           letterSpacing: "-0.02em",
         }}>Message received.</p>
         <p style={{
           fontFamily: "var(--font-mono), monospace",
           fontSize: 11, letterSpacing: "0.08em", lineHeight: 1.7,
-          color: "rgba(255,255,255,0.5)",
+          color: "rgba(26,18,8,0.5)",
         }}>
           We&apos;ll be in touch regarding {address}, {suburb} within the next hour.
         </p>
@@ -66,7 +66,7 @@ export default function EnquiryForm({ address, suburb }: { address: string; subu
         placeholder="Full name"
         style={{
           ...inputStyle,
-          borderColor: focused === "name" ? "rgba(212,187,123,0.6)" : "rgba(255,255,255,0.12)",
+          borderColor: focused === "name" ? "#d4bb7b" : "rgba(26,18,8,0.15)",
         }}
         onFocus={() => setFocused("name")}
         onBlur={() => setFocused(null)}
@@ -77,7 +77,7 @@ export default function EnquiryForm({ address, suburb }: { address: string; subu
         placeholder="Email address"
         style={{
           ...inputStyle,
-          borderColor: focused === "email" ? "rgba(212,187,123,0.6)" : "rgba(255,255,255,0.12)",
+          borderColor: focused === "email" ? "#d4bb7b" : "rgba(26,18,8,0.15)",
         }}
         onFocus={() => setFocused("email")}
         onBlur={() => setFocused(null)}
@@ -87,7 +87,7 @@ export default function EnquiryForm({ address, suburb }: { address: string; subu
         placeholder="Phone (optional)"
         style={{
           ...inputStyle,
-          borderColor: focused === "phone" ? "rgba(212,187,123,0.6)" : "rgba(255,255,255,0.12)",
+          borderColor: focused === "phone" ? "#d4bb7b" : "rgba(26,18,8,0.15)",
         }}
         onFocus={() => setFocused("phone")}
         onBlur={() => setFocused(null)}
@@ -98,7 +98,7 @@ export default function EnquiryForm({ address, suburb }: { address: string; subu
         style={{
           ...inputStyle,
           resize: "vertical",
-          borderColor: focused === "msg" ? "rgba(212,187,123,0.6)" : "rgba(255,255,255,0.12)",
+          borderColor: focused === "msg" ? "#d4bb7b" : "rgba(26,18,8,0.15)",
         }}
         onFocus={() => setFocused("msg")}
         onBlur={() => setFocused(null)}
@@ -108,15 +108,15 @@ export default function EnquiryForm({ address, suburb }: { address: string; subu
         type="submit"
         style={{
           marginTop: 8,
-          background: "#d4bb7b", border: "none",
-          color: "#0a0a08", padding: "18px 32px",
+          background: "#1a1208", border: "none",
+          color: "#fff", padding: "18px 32px",
           fontFamily: "var(--font-mono), monospace",
           fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase",
           cursor: "pointer",
           transition: `opacity 0.3s ${EASE}`,
           display: "flex", alignItems: "center", justifyContent: "space-between",
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
+        onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
         onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
       >
         <span>Send enquiry</span>
@@ -126,7 +126,7 @@ export default function EnquiryForm({ address, suburb }: { address: string; subu
       <p style={{
         marginTop: 12,
         fontFamily: "var(--font-mono), monospace",
-        fontSize: 9, letterSpacing: "0.1em", color: "rgba(255,255,255,0.3)",
+        fontSize: 9, letterSpacing: "0.1em", color: "rgba(26,18,8,0.35)",
         lineHeight: 1.6,
       }}>
         Your enquiry is treated with the same discretion we bring to every transaction.
