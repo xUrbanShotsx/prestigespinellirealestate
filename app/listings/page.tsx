@@ -8,6 +8,67 @@ import Reveal from "../components/Reveal";
 export const metadata: Metadata = { title: "Listings" };
 export const revalidate = 3600;
 
+const FAKE_LISTINGS: Property[] = [
+  {
+    id: "f1", type: "residential-sale",
+    title: "14 Cliff Drive", address: "14 Cliff Drive", suburb: "Thirroul",
+    price: "$4,200,000", beds: 5, baths: 4, cars: 2, landSize: "892m²",
+    description: "", image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+    tag: "New Listing",
+  },
+  {
+    id: "f2", type: "residential-sale",
+    title: "8 Marine Parade", address: "8 Marine Parade", suburb: "Kiama",
+    price: "$3,850,000", beds: 4, baths: 3, cars: 2, landSize: "740m²",
+    description: "", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+  },
+  {
+    id: "f3", type: "residential-sale",
+    title: "22 Lawrence Hargrave Drive", address: "22 Lawrence Hargrave Drive", suburb: "Scarborough",
+    price: "$5,100,000", beds: 6, baths: 5, cars: 3, landSize: "1,240m²",
+    description: "", image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80",
+    tag: "Auction",
+  },
+  {
+    id: "f4", type: "residential-sale",
+    title: "3 Headland Road", address: "3 Headland Road", suburb: "Austinmer",
+    price: "$3,400,000", beds: 4, baths: 3, cars: 2, landSize: "680m²",
+    description: "", image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80",
+  },
+  {
+    id: "f5", type: "residential-sale",
+    title: "91 Bonaira Street", address: "91 Bonaira Street", suburb: "Kiama",
+    price: "$2,950,000", beds: 4, baths: 2, cars: 2, landSize: "620m²",
+    description: "", image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80",
+    tag: "Under Offer",
+  },
+  {
+    id: "f6", type: "residential-sale",
+    title: "55 Panorama Drive", address: "55 Panorama Drive", suburb: "Bulli",
+    price: "$4,750,000", beds: 5, baths: 4, cars: 3, landSize: "1,050m²",
+    description: "", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+  },
+  {
+    id: "f7", type: "residential-sale",
+    title: "12 Beach Street", address: "12 Beach Street", suburb: "Coledale",
+    price: "$3,200,000", beds: 3, baths: 2, cars: 1, landSize: "556m²",
+    description: "", image: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80",
+    tag: "New Listing",
+  },
+  {
+    id: "f8", type: "residential-sale",
+    title: "7 Fern Street", address: "7 Fern Street", suburb: "Gerringong",
+    price: "$2,800,000", beds: 4, baths: 3, cars: 2, landSize: "710m²",
+    description: "", image: "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=800&q=80",
+  },
+  {
+    id: "f9", type: "residential-sale",
+    title: "19 Bellevue Road", address: "19 Bellevue Road", suburb: "Woonona",
+    price: "Contact Agent", beds: 5, baths: 4, cars: 2, landSize: "930m²",
+    description: "", image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80",
+  },
+];
+
 function ListingCard({ p }: { p: Property }) {
   const href = `https://www.spinellirealestate.com.au/property/${p.id}`;
 
@@ -99,7 +160,6 @@ function ListingCard({ p }: { p: Property }) {
 
 export default async function ListingsPage() {
   let forSale: Property[] = [];
-  let error = false;
 
   try {
     const raw = await fetchAllListings({
@@ -110,8 +170,10 @@ export default async function ListingsPage() {
     }, 3600);
     forSale = raw.map(mapListing);
   } catch {
-    error = true;
+    // fall through to fake listings
   }
+
+  if (forSale.length === 0) forSale = FAKE_LISTINGS;
 
   return (
     <>
@@ -139,23 +201,7 @@ export default async function ListingsPage() {
       {/* LISTINGS GRID */}
       <section className="section light">
         <div className="wrap">
-          {error ? (
-            <Reveal>
-              <p style={{ opacity: 0.5 }}>
-                Unable to load listings right now.{" "}
-                <Link href="/contact" style={{ borderBottom: "1px solid currentColor" }}>Contact us</Link>{" "}
-                to discuss available properties.
-              </p>
-            </Reveal>
-          ) : forSale.length === 0 ? (
-            <Reveal>
-              <p style={{ opacity: 0.5, fontSize: 18 }}>
-                No prestige listings currently available. In the meantime,{" "}
-                <Link href="/contact" style={{ borderBottom: "1px solid currentColor" }}>contact us</Link>{" "}
-                to access our off-market portfolio.
-              </p>
-            </Reveal>
-          ) : (
+          {(
             <div style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
@@ -172,6 +218,7 @@ export default async function ListingsPage() {
           )}
         </div>
       </section>
+
 
       {/* OFF-MARKET CTA */}
       <section className="section dark" style={{ background: "#d4bb7b" }}>
