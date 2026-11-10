@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import type { Property } from "@/lib/types";
 
@@ -9,7 +10,7 @@ const IMG_H = "clamp(200px, 23vw, 380px)";
 
 export default function ListingCard({ p }: { p: Property }) {
   const [hovered, setHovered] = useState(false);
-  const href = `https://www.spinellirealestate.com.au/property/${p.id}`;
+  const href = `/listings/${p.id}`;
 
   const specs = [
     p.beds   != null           ? `${p.beds} Bed`   : null,
@@ -18,10 +19,8 @@ export default function ListingCard({ p }: { p: Property }) {
   ].filter(Boolean) as string[];
 
   return (
-    <a
+    <Link
       href={href}
-      target="_blank"
-      rel="noopener noreferrer"
       className="listing-card"
       style={{ display: "block", textDecoration: "none", color: "inherit" }}
       onMouseEnter={() => setHovered(true)}
@@ -76,6 +75,6 @@ export default function ListingCard({ p }: { p: Property }) {
           color: "rgba(26,18,8,0.45)",
         }}>{p.suburb.toUpperCase()} NSW</p>
       </div>
-    </a>
+    </Link>
   );
 }

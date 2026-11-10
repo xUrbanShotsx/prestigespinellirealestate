@@ -869,6 +869,24 @@ textarea {
     grid-row: auto !important;
     grid-column: 1 / -1 !important;
   }
+
+  /* Property detail page */
+  .property-desc-grid,
+  .property-enquiry-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .property-spec-bar {
+    flex-wrap: wrap;
+    gap: 20px 32px;
+  }
+  .gallery-grid {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+  }
+  .gallery-grid > *:first-child {
+    grid-row: auto !important;
+    aspect-ratio: 16/9 !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
