@@ -702,12 +702,15 @@ textarea {
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .listings-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }
+  .listings-grid > * {
+    grid-column: span 1 !important;
+  }
 }
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .listings-grid {
     grid-template-columns: 1fr !important;
   }

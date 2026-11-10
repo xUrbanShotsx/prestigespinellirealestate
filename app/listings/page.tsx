@@ -69,6 +69,8 @@ const FAKE_LISTINGS: Property[] = [
   },
 ];
 
+const IMG_H = "clamp(200px, 23vw, 380px)";
+
 function ListingCard({ p }: { p: Property }) {
   const href = `https://www.spinellirealestate.com.au/property/${p.id}`;
 
@@ -80,79 +82,38 @@ function ListingCard({ p }: { p: Property }) {
       className="listing-card"
       style={{ display: "block", textDecoration: "none", color: "inherit" }}
     >
-      {/* IMAGE */}
-      <div style={{
-        position: "relative",
-        aspectRatio: "4 / 3",
-        overflow: "hidden",
-        background: "#f0ede6",
-        marginBottom: 0,
-      }}>
+      <div style={{ position: "relative", height: IMG_H, overflow: "hidden", background: "#ece9e2" }}>
         <Image
           src={p.image}
           alt={p.address}
           fill
-          sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          style={{
-            objectFit: "cover",
-            transition: "transform 0.8s cubic-bezier(0.22,1,0.36,1)",
-          }}
+          sizes="(max-width: 768px) 100vw, 50vw"
+          style={{ objectFit: "cover", transition: "transform 0.9s cubic-bezier(0.22,1,0.36,1)" }}
           className="listing-card__img"
         />
         {p.tag && (
           <span style={{
-            position: "absolute", top: 16, left: 16,
-            background: p.tag === "Under Offer" ? "#d4bb7b" : "rgba(0,0,0,0.75)",
+            position: "absolute", top: 14, left: 14,
+            background: p.tag === "Under Offer" ? "#d4bb7b" : "rgba(26,18,8,0.78)",
             color: "#fff",
             fontFamily: "var(--font-mono), monospace",
-            fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase",
-            padding: "5px 12px", borderRadius: 999,
+            fontSize: 9, letterSpacing: "0.12em", textTransform: "uppercase",
+            padding: "4px 10px", borderRadius: 999,
           }}>{p.tag}</span>
         )}
       </div>
 
-      {/* DETAILS */}
-      <div style={{ padding: "20px 0 32px", borderBottom: "1px solid var(--line-light)" }}>
+      <div style={{ paddingTop: 14 }}>
         <p style={{
           fontFamily: "var(--font-mono), monospace",
-          fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase",
-          color: "var(--grey)", marginBottom: 8,
-        }}>{p.suburb}</p>
-
-        <h3 style={{
-          fontSize: "clamp(18px,1.8vw,24px)",
-          fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1,
-          marginBottom: 10, color: "#1a1208",
-        }}>{p.address}</h3>
-
+          fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase",
+          color: "#1a1208", marginBottom: 4,
+        }}>{p.address.toUpperCase()}</p>
         <p style={{
-          fontSize: "clamp(20px,2vw,28px)",
-          fontWeight: 700, letterSpacing: "-0.025em",
-          color: "#d4bb7b", marginBottom: 16,
-        }}>{p.price}</p>
-
-        {(p.beds || p.baths || p.cars) && (
-          <div style={{
-            display: "flex", gap: 20,
-            fontFamily: "var(--font-mono), monospace",
-            fontSize: 11, letterSpacing: "0.08em",
-            color: "var(--grey)",
-          }}>
-            {p.beds != null && <span>{p.beds} bed</span>}
-            {p.baths != null && <span>{p.baths} bath</span>}
-            {p.cars != null && p.cars > 0 && <span>{p.cars} car</span>}
-            {p.landSize && <span>{p.landSize}</span>}
-          </div>
-        )}
-
-        {p.openHome && (
-          <p style={{
-            marginTop: 12,
-            fontFamily: "var(--font-mono), monospace",
-            fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase",
-            color: "#d4bb7b",
-          }}>Open · {p.openHome}</p>
-        )}
+          fontFamily: "var(--font-mono), monospace",
+          fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase",
+          color: "rgba(26,18,8,0.45)",
+        }}>{p.suburb.toUpperCase()} NSW</p>
       </div>
     </a>
   );
@@ -201,21 +162,27 @@ export default async function ListingsPage() {
       {/* LISTINGS GRID */}
       <section className="section light">
         <div className="wrap">
-          {(
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "clamp(40px,5vw,72px) clamp(20px,3vw,40px)",
-            }}
-              className="listings-grid"
-            >
-              {forSale.map((p, i) => (
-                <Reveal key={p.id} delay={Math.min(i * 50, 200)}>
+          {/* 4-col grid: odd rows wide-left, even rows wide-right */}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: "clamp(32px,4vw,60px) clamp(12px,1.5vw,24px)",
+          }}
+            className="listings-grid"
+          >
+            {forSale.map((p, i) => {
+              const group = Math.floor(i / 3);       // which row group (0,1,2…)
+              const pos   = i % 3;                   // position within group (0,1,2)
+              // Odd groups (0,2,…): first item is wide. Even groups (1,3,…): last item is wide.
+              const isWide = group % 2 === 0 ? pos === 0 : pos === 2;
+              return (
+                <Reveal key={p.id} delay={Math.min((i % 3) * 70, 140)}
+                  style={{ gridColumn: isWide ? "span 2" : "span 1" }}>
                   <ListingCard p={p} />
                 </Reveal>
-              ))}
-            </div>
-          )}
+              );
+            })}
+          </div>
         </div>
       </section>
 
