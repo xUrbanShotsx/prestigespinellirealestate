@@ -24,6 +24,69 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* FEATURE CARDS */}
+      <section style={{ background: "#fff", padding: "0 0 clamp(80px,14vw,200px)" }}>
+        <div className="feature-cards" style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: 2,
+        }}>
+          {[
+            {
+              label: "Off-Market",
+              heading: "Exclusive access before it goes public.",
+              body: "Our buyer network gets first look at the finest properties in the region — many sales are negotiated quietly, before a sign goes up.",
+              bg: "#d4bb7b",
+            },
+            {
+              label: "Prestige Sales",
+              heading: "Results that reflect the true value of your home.",
+              body: "We combine deep local knowledge with an uncompromising approach to presentation and negotiation — because every detail matters at this level.",
+              bg: "#1a1208",
+            },
+            {
+              label: "Market Intelligence",
+              heading: "Know your position before you move.",
+              body: "Detailed, honest appraisals grounded in live market data. We'll tell you what your property is worth — and how to maximise it.",
+              bg: "#d4bb7b",
+            },
+          ].map((card, i) => (
+            <Reveal key={i} delay={i * 80} style={{
+              background: card.bg,
+              color: card.bg === "#1a1208" ? "#fff" : "#fff",
+              aspectRatio: "3 / 4",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-end",
+              padding: "clamp(28px,4vw,56px)",
+              minHeight: "clamp(380px,55vw,760px)",
+            }}>
+              <p style={{
+                fontFamily: "var(--font-mono), monospace",
+                fontSize: 11,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                opacity: 0.7,
+                marginBottom: 24,
+              }}>{card.label}</p>
+              <h3 style={{
+                fontSize: "clamp(24px,2.8vw,42px)",
+                fontWeight: 700,
+                letterSpacing: "-0.035em",
+                lineHeight: 1.05,
+                marginBottom: 20,
+              }}>{card.heading}</h3>
+              <p style={{
+                fontSize: "clamp(14px,1.1vw,17px)",
+                lineHeight: 1.6,
+                opacity: 0.75,
+                maxWidth: 340,
+              }}>{card.body}</p>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
       {/* HOW WE WORK */}
       <section className="section light">
         <div className="wrap approach">

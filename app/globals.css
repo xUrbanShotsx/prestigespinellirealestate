@@ -835,6 +835,9 @@ textarea {
   .footer__grid {
     grid-template-columns: 1fr;
   }
+  .feature-cards {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
