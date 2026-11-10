@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const links = [
-  { href: "/", label: "Listings" },
+  { href: "/listings", label: "Listings" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -45,15 +45,7 @@ export default function Header() {
             <Link
               key={l.href}
               href={l.href}
-              className={
-                l.href === "/"
-                  ? pathname === "/"
-                    ? "is-active"
-                    : ""
-                  : pathname.startsWith(l.href)
-                  ? "is-active"
-                  : ""
-              }
+              className={pathname.startsWith(l.href) ? "is-active" : ""}
             >
               {l.label}
             </Link>
