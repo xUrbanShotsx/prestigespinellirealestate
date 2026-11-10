@@ -2,6 +2,7 @@ import Link from "next/link";
 import Reveal from "./components/Reveal";
 import HeroVideo from "./components/HeroVideo";
 import HeroChat from "./components/HeroChat";
+import ScrollStatement from "./components/ScrollStatement";
 
 export default function HomePage() {
   return (
@@ -17,10 +18,7 @@ export default function HomePage() {
       {/* STATEMENT */}
       <section className="section light">
         <div className="wrap statement">
-          <Reveal as="p" className="eyebrow">Our approach</Reveal>
-          <Reveal as="p" className="statement__text">
-            The finest homes in the Illawarra and South Coast, represented with the expertise, discretion and market knowledge they deserve.
-          </Reveal>
+          <ScrollStatement />
         </div>
       </section>
 
