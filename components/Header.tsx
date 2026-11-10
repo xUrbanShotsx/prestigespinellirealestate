@@ -13,6 +13,7 @@ const links = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -20,9 +21,15 @@ export default function Header() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.85);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <>
-      <header className="header">
+      <header className="header" style={{ color: scrolled ? "#d4bb7b" : "#fff", transition: "color 0.4s cubic-bezier(0.22,1,0.36,1)" }}>
         <Link href="/" className="header__logo" aria-label="Spinelli Prestige home">
           <Image
             src="/logo.webp"

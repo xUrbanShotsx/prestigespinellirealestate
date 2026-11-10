@@ -132,7 +132,7 @@ export default function HeroChat() {
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <div style={{
-              width: 32, height: 32, borderRadius: "50%", background: "#000",
+              width: 32, height: 32, borderRadius: "50%", background: "#d4bb7b",
               display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
             }}>
               <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
@@ -171,7 +171,7 @@ export default function HeroChat() {
               gap: 8,
             }}>
               {m.role === "assistant" && (
-                <div style={{ width: 26, height: 26, borderRadius: "50%", background: "#000", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: 26, height: 26, borderRadius: "50%", background: "#d4bb7b", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <svg width="12" height="12" viewBox="0 0 18 18" fill="none">
                     <circle cx="9" cy="7" r="3" fill="#fff"/>
                     <path d="M3 15c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="#fff" strokeWidth="1.6" strokeLinecap="round"/>
@@ -182,7 +182,7 @@ export default function HeroChat() {
                 maxWidth: "78%",
                 padding: "10px 14px",
                 borderRadius: m.role === "user" ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
-                background: m.role === "user" ? "#000" : "#f4f4f4",
+                background: m.role === "user" ? "#d4bb7b" : "#f4f4f4",
                 color: m.role === "user" ? "#fff" : "#111",
                 fontFamily: "var(--font-sans), sans-serif",
                 fontSize: 14,
@@ -210,7 +210,7 @@ export default function HeroChat() {
           alignItems: "center",
           gap: 8,
           padding: isChat ? "10px 10px 10px 18px" : "0 8px 0 24px",
-          borderTop: isChat ? "1px solid rgba(0,0,0,0.07)" : "none",
+          borderTop: isChat ? "1px solid rgba(212,187,123,0.25)" : "none",
           flex: isChat ? "0 0 auto" : 1,
           transition: `padding 0.5s ${EASE}, border 0.5s ${EASE}`,
         }}>
@@ -241,7 +241,7 @@ export default function HeroChat() {
               width: isChat ? 36 : 44,
               height: isChat ? 36 : 44,
               borderRadius: "50%",
-              background: "#000",
+              background: "#d4bb7b",
               border: "none",
               cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center",

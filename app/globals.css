@@ -1,9 +1,9 @@
 :root {
-  --ink: #000;
+  --ink: #d4bb7b;
   --paper: #fff;
-  --grey: #8c8c8c;
-  --line-dark: rgba(255, 255, 255, 0.18);
-  --line-light: rgba(0, 0, 0, 0.16);
+  --grey: #b8975a;
+  --line-dark: rgba(255, 255, 255, 0.2);
+  --line-light: rgba(212, 187, 123, 0.3);
   --gutter: clamp(20px, 4vw, 56px);
   --max: 1560px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -156,7 +156,7 @@ textarea {
   color: var(--paper);
 }
 
-/* Header — inverts against whatever is behind it */
+/* Header */
 .header {
   position: fixed;
   inset: 0 0 auto 0;
@@ -166,7 +166,6 @@ textarea {
   justify-content: space-between;
   padding: 22px var(--gutter);
   color: #fff;
-  mix-blend-mode: difference;
   pointer-events: none;
 }
 .header > * {
