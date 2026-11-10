@@ -29,7 +29,8 @@ export default function HomePage() {
         <div className="feature-cards" style={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
-          gap: 2,
+          gap: "clamp(12px,2vw,24px)",
+          padding: "0 clamp(20px,4vw,56px) clamp(20px,4vw,56px)",
         }}>
           {[
             {
@@ -53,13 +54,15 @@ export default function HomePage() {
           ].map((card, i) => (
             <Reveal key={i} delay={i * 80} style={{
               background: card.bg,
-              color: card.bg === "#1a1208" ? "#fff" : "#fff",
+              color: "#fff",
               aspectRatio: "3 / 4",
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-end",
               padding: "clamp(28px,4vw,56px)",
               minHeight: "clamp(380px,55vw,760px)",
+              border: "1px solid rgba(255,255,255,0.18)",
+              borderRadius: 4,
             }}>
               <p style={{
                 fontFamily: "var(--font-mono), monospace",
