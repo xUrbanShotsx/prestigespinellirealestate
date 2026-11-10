@@ -149,32 +149,6 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
               </p>
             </Reveal>
 
-            {/* divider */}
-            <div style={{ borderTop: "1px solid rgba(26,18,8,0.08)", marginBottom: 40 }} />
-
-            {/* description label */}
-            <Reveal delay={70}>
-              <p style={{
-                fontFamily: "var(--font-mono), monospace",
-                fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase",
-                color: "rgba(26,18,8,0.35)", marginBottom: 24,
-              }}>The deal</p>
-            </Reveal>
-
-            {/* first paragraph prominent, rest collapsible */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-              {paragraphs.slice(0, 2).map((para, i) => (
-                <Reveal key={i} delay={80 + i * 30}>
-                  <p style={{
-                    fontSize: "clamp(15px,1.5vw,18px)",
-                    lineHeight: 1.75, color: "#1a1208",
-                    fontWeight: i === 0 ? 500 : 400,
-                    opacity: i === 0 ? 1 : 0.75,
-                  }}>{para}</p>
-                </Reveal>
-              ))}
-            </div>
-
             {/* open home */}
             {p.openHome && (
               <Reveal delay={120}>
@@ -311,6 +285,55 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
         </div>
       </section>
 
+      {/* ── ABOUT THE PROPERTY ───────────────────────────────────── */}
+      <section style={{ background: "#fff", padding: "clamp(80px,10vw,160px) 0" }}>
+        <div className="wrap property-desc-grid" style={{
+          display: "grid",
+          gridTemplateColumns: "1fr clamp(260px,32vw,480px)",
+          gap: "clamp(48px,6vw,96px)",
+          alignItems: "start",
+        }}>
+          <div>
+            <Reveal>
+              <p style={{
+                fontFamily: "var(--font-mono), monospace",
+                fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase",
+                color: "rgba(26,18,8,0.35)", marginBottom: 40,
+              }}>About the property</p>
+            </Reveal>
+            <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+              {paragraphs.map((para, i) => (
+                <Reveal key={i} delay={i * 30}>
+                  <p style={{
+                    fontSize: "clamp(15px,1.5vw,18px)",
+                    lineHeight: 1.75, color: "#1a1208",
+                    fontWeight: i === 0 ? 500 : 400,
+                    opacity: i === 0 ? 1 : 0.78,
+                  }}>{para}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+
+          {p.photos && p.photos[1] && (
+            <Reveal delay={80}>
+              <div style={{
+                position: "sticky", top: 120,
+                aspectRatio: "3/4", overflow: "hidden", background: "#ece9e2",
+              }}>
+                <Image
+                  src={p.photos[1]}
+                  alt={p.address}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 32vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+            </Reveal>
+          )}
+        </div>
+      </section>
+
       {/* ── PHOTO GALLERY ────────────────────────────────────────── */}
       {p.photos && p.photos.length > 0 && (
         <section style={{ background: "#0a0a08", padding: "clamp(60px,8vw,120px) 0" }}>
@@ -323,45 +346,6 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
               }}>Gallery</p>
             </Reveal>
             <PhotoGallery photos={[p.image, ...p.photos]} address={p.address} />
-          </div>
-        </section>
-      )}
-
-      {/* ── REMAINING DESCRIPTION ────────────────────────────────── */}
-      {paragraphs.length > 2 && (
-        <section style={{ background: "#fff", padding: "clamp(80px,10vw,140px) 0" }}>
-          <div className="wrap property-desc-grid" style={{
-            display: "grid",
-            gridTemplateColumns: "1fr clamp(260px,32vw,480px)",
-            gap: "clamp(48px,6vw,96px)",
-            alignItems: "start",
-          }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-              {paragraphs.slice(2).map((para, i) => (
-                <Reveal key={i} delay={i * 30}>
-                  <p style={{
-                    fontSize: "clamp(15px,1.5vw,18px)",
-                    lineHeight: 1.75, color: "#1a1208", opacity: 0.8,
-                  }}>{para}</p>
-                </Reveal>
-              ))}
-            </div>
-            {p.photos && p.photos[2] && (
-              <Reveal delay={60}>
-                <div style={{
-                  position: "sticky", top: 120,
-                  aspectRatio: "3/4", overflow: "hidden", background: "#ece9e2",
-                }}>
-                  <Image
-                    src={p.photos[2]}
-                    alt={p.address}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 32vw"
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-              </Reveal>
-            )}
           </div>
         </section>
       )}
