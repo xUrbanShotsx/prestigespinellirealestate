@@ -871,9 +871,17 @@ textarea {
   }
 
   /* Property detail page */
+  .property-info-grid,
   .property-desc-grid,
   .property-enquiry-grid {
     grid-template-columns: 1fr !important;
+  }
+  .property-info-grid > *:first-child {
+    border-right: none !important;
+    padding-right: 0 !important;
+  }
+  .property-info-grid > *:last-child {
+    padding-left: 0 !important;
   }
   .property-spec-bar {
     flex-wrap: wrap;
