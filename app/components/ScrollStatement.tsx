@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const WORDS = "The finest homes in the Illawarra and South Coast, represented with the expertise, discretion and market knowledge they deserve.".split(" ");
+const WORDS = "The finest homes in the Illawarra and South Coast, represented with the expertise, discretion and market knowledge they deserve. We work with a select number of clients at any one time — giving every property the attention, strategy and presence it demands. Because at this level, the difference between good and exceptional is everything.".split(" ");
 
 export default function ScrollStatement() {
   const ref = useRef<HTMLParagraphElement>(null);
