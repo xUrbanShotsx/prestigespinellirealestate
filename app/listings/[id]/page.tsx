@@ -336,13 +336,13 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
 
       {/* ── PHOTO GALLERY ────────────────────────────────────────── */}
       {p.photos && p.photos.length > 0 && (
-        <section style={{ background: "#0a0a08", padding: "clamp(60px,8vw,120px) 0" }}>
+        <section style={{ background: "#fff", padding: "clamp(60px,8vw,120px) 0" }}>
           <div className="wrap">
             <Reveal>
               <p style={{
                 fontFamily: "var(--font-mono), monospace",
                 fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase",
-                color: "rgba(255,255,255,0.3)", marginBottom: 40,
+                color: "rgba(26,18,8,0.35)", marginBottom: 40,
               }}>Gallery</p>
             </Reveal>
             <PhotoGallery photos={[p.image, ...p.photos]} address={p.address} />

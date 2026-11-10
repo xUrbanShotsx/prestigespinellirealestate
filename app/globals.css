@@ -887,14 +887,7 @@ textarea {
     flex-wrap: wrap;
     gap: 20px 32px;
   }
-  .gallery-grid {
-    grid-template-columns: 1fr !important;
-    grid-template-rows: auto !important;
-  }
-  .gallery-grid > *:first-child {
-    grid-row: auto !important;
-    aspect-ratio: 16/9 !important;
-  }
+  /* gallery collapses same as listings grid */
 }
 
 @media (prefers-reduced-motion: reduce) {

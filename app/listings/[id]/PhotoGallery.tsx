@@ -8,122 +8,63 @@ const EASE = "cubic-bezier(0.22,1,0.36,1)";
 export default function PhotoGallery({ photos, address }: { photos: string[]; address: string }) {
   const [lightbox, setLightbox] = useState<number | null>(null);
 
-  const grid = photos.slice(0, 5);
-
   return (
     <>
-      {/* grid: wide left, 2x2 right */}
-      <div className="gallery-grid" style={{
+      {/* Alternating wide/narrow grid — same pattern as listings page */}
+      <div style={{
         display: "grid",
-        gridTemplateColumns: "1.4fr 1fr",
-        gridTemplateRows: "auto auto",
-        gap: 3,
+        gridTemplateColumns: "repeat(4, 1fr)",
+        gap: 12,
       }}>
-        {/* large left — spans 2 rows */}
-        {grid[0] && (
-          <div
-            onClick={() => setLightbox(0)}
-            style={{
-              gridRow: "1 / 3",
-              position: "relative",
-              aspectRatio: "2/3",
-              overflow: "hidden",
-              cursor: "zoom-in",
-              background: "#1a1208",
-            }}
-          >
-            <Image
-              src={grid[0]}
-              alt={address}
-              fill
-              sizes="(max-width: 768px) 100vw, 56vw"
-              style={{
-                objectFit: "cover",
-                transition: `transform 0.9s ${EASE}`,
-              }}
-              className="gallery-img"
-            />
-          </div>
-        )}
+        {photos.map((src, i) => {
+          const group = Math.floor(i / 3);
+          const pos   = i % 3;
+          const isWide = group % 2 === 0 ? pos === 0 : pos === 2;
 
-        {/* top-right */}
-        {grid[1] && (
-          <div
-            onClick={() => setLightbox(1)}
-            style={{
-              position: "relative",
-              aspectRatio: "16/9",
-              overflow: "hidden",
-              cursor: "zoom-in",
-              background: "#1a1208",
-            }}
-          >
-            <Image src={grid[1]} alt={address} fill sizes="44vw"
-              style={{ objectFit: "cover", transition: `transform 0.9s ${EASE}` }}
-              className="gallery-img"
-            />
-          </div>
-        )}
-
-        {/* bottom-right */}
-        {grid[2] && (
-          <div
-            onClick={() => setLightbox(2)}
-            style={{
-              position: "relative",
-              aspectRatio: "16/9",
-              overflow: "hidden",
-              cursor: "zoom-in",
-              background: "#1a1208",
-            }}
-          >
-            <Image src={grid[2]} alt={address} fill sizes="44vw"
-              style={{ objectFit: "cover", transition: `transform 0.9s ${EASE}` }}
-              className="gallery-img"
-            />
-            {photos.length > 5 && (
-              <div style={{
-                position: "absolute", inset: 0,
-                background: "rgba(10,10,8,0.6)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-              }}>
-                <span style={{
-                  fontFamily: "var(--font-mono), monospace",
-                  fontSize: 13, letterSpacing: "0.1em", color: "#fff",
-                }}>+{photos.length - 5} more</span>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* remaining photos strip */}
-      {grid.length > 3 && (
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${Math.min(grid.length - 3, 2)}, 1fr)`,
-          gap: 3, marginTop: 3,
-        }}>
-          {grid.slice(3).map((src, i) => (
+          return (
             <div
               key={src}
-              onClick={() => setLightbox(i + 3)}
+              onClick={() => setLightbox(i)}
               style={{
+                gridColumn: isWide ? "span 2" : "span 1",
                 position: "relative",
-                aspectRatio: "16/9",
+                aspectRatio: isWide ? "16/9" : "4/5",
                 overflow: "hidden",
                 cursor: "zoom-in",
-                background: "#1a1208",
+                background: "#ece9e2",
               }}
             >
-              <Image src={src} alt={address} fill sizes="50vw"
-                style={{ objectFit: "cover", transition: `transform 0.9s ${EASE}` }}
+              <Image
+                src={src}
+                alt={`${address} — photo ${i + 1}`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{
+                  objectFit: "cover",
+                  transition: `transform 0.9s ${EASE}`,
+                }}
                 className="gallery-img"
               />
+              {/* index on hover */}
+              <div style={{
+                position: "absolute", inset: 0,
+                display: "flex", alignItems: "flex-end",
+                padding: 14,
+                opacity: 0,
+                transition: `opacity 0.3s ${EASE}`,
+              }} className="gallery-overlay">
+                <span style={{
+                  fontFamily: "var(--font-mono), monospace",
+                  fontSize: 9, letterSpacing: "0.14em",
+                  color: "rgba(255,255,255,0.7)",
+                }}>
+                  {i + 1} / {photos.length}
+                </span>
+              </div>
             </div>
-          ))}
-        </div>
-      )}
+          );
+        })}
+      </div>
 
       {/* lightbox */}
       {lightbox !== null && (
@@ -146,7 +87,6 @@ export default function PhotoGallery({ photos, address }: { photos: string[]; ad
             />
           </div>
 
-          {/* prev */}
           {lightbox > 0 && (
             <button
               onClick={(e) => { e.stopPropagation(); setLightbox(lightbox - 1); }}
@@ -161,7 +101,6 @@ export default function PhotoGallery({ photos, address }: { photos: string[]; ad
             >←</button>
           )}
 
-          {/* next */}
           {lightbox < photos.length - 1 && (
             <button
               onClick={(e) => { e.stopPropagation(); setLightbox(lightbox + 1); }}
@@ -176,7 +115,6 @@ export default function PhotoGallery({ photos, address }: { photos: string[]; ad
             >→</button>
           )}
 
-          {/* counter */}
           <p style={{
             position: "absolute", bottom: 24, left: "50%",
             transform: "translateX(-50%)",
@@ -186,7 +124,6 @@ export default function PhotoGallery({ photos, address }: { photos: string[]; ad
             {lightbox + 1} / {photos.length}
           </p>
 
-          {/* close */}
           <button
             onClick={() => setLightbox(null)}
             style={{
@@ -202,6 +139,7 @@ export default function PhotoGallery({ photos, address }: { photos: string[]; ad
 
       <style>{`
         .gallery-img:hover { transform: scale(1.04) !important; }
+        .gallery-overlay:hover, div:hover > .gallery-overlay { opacity: 1 !important; }
       `}</style>
     </>
   );
