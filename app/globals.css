@@ -838,6 +838,17 @@ textarea {
   .feature-cards {
     grid-template-columns: 1fr !important;
   }
+  .editorial-split,
+  .editorial-reverse {
+    grid-template-columns: 1fr !important;
+  }
+  .editorial-trio {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .editorial-trio > *:first-child {
+    grid-row: auto !important;
+    grid-column: 1 / -1 !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
