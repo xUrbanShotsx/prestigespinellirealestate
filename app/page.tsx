@@ -24,7 +24,7 @@ export default function HomePage() {
       </section>
 
       {/* PROPERTY CARDS */}
-      <section style={{ background: "#fff", padding: "0 0 clamp(80px,14vw,200px)" }}>
+      <section style={{ background: "#d4bb7b", padding: "clamp(60px,8vw,120px) 0 clamp(80px,14vw,200px)" }}>
         <div className="feature-cards" style={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
